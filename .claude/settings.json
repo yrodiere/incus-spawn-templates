@@ -2,20 +2,5 @@
   "attribution": {
     "commit": "Assisted-By: Claude Code <noreply@anthropic.com>",
     "pr": ""
-  },
-                  "permissions": {
-                    "defaultMode": "bypassPermissions",
-                    "allow": [
-                      "Bash(*)",
-                      "Read(**)",
-                      "Edit(**)",
-                      "Write(**)",
-                      "Glob(**)",
-                      "Grep(**)",
-                      "WebFetch",
-                      "WebSearch",
-                      "Agent(*)"
-                    ]
-                  },
-                  "skipDangerousModePermissionPrompt": true
+  }
 }

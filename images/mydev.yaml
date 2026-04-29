@@ -16,7 +16,7 @@ host-resources:
     mode: copy
   - source: ~/workspaces/infra/incus-spawn-templates/.claude
     path: ~/.claude
-    mode: overlay
+    mode: merge
   - source: ~/.local/share/containers/storage
     path: /mnt/podman-host-storage
   - source: ~/workspaces/infra/incus-spawn-templates/podman-storage.conf
