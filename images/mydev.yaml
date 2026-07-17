@@ -5,6 +5,11 @@ default-action: claude
 tools:
   - zsh
   - mvnd
+  - claude:
+      model: claude-opus-4-6
+      attribution-commit: "Assisted-By: Claude Code <noreply@anthropic.com>"
+      attribution-pr: ""
+      editor-mode: vim
 skills:
   - yrodiere/claude-skills
 host-resources:
@@ -15,10 +20,6 @@ host-resources:
     mode: overlay
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
     path: ~/.gitconfig
-    mode: copy
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.claude/settings.json
-    path: ~/.claude/settings.json
-    # Overlay won't work for some reason.
     mode: copy
   - source: ~/.local/share/containers/storage
     path: /mnt/podman-host-storage
