@@ -3,8 +3,10 @@ description: Base for tpl-mydev, with the slow, hopefully rarely-updated part of
 parent: tpl-java
 tools:
   - podman
+  - podman-compose
   - idea-backend:
       memory: 8g
+  - vscode-remote
   - sdkman
   - headroom
 packages:
