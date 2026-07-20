@@ -1,0 +1,17 @@
+name: podman-full
+description: Podman with compose and permissive short image name resolution
+
+requires:
+  - podman
+
+packages:
+  - podman-compose
+
+files:
+  - path: /etc/containers/registries.conf.d/10-short-names.conf
+    content: |
+      # Resolve short image names (e.g. postgres:18) to docker.io without prompting.
+      short-name-mode = "permissive"
+      unqualified-search-registries = ["docker.io"]
+
+verify: podman-compose --version
