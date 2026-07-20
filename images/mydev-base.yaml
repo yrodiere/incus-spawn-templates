@@ -2,8 +2,7 @@ name: tpl-mydev-base
 description: Base for tpl-mydev, with the slow, hopefully rarely-updated part of setup.
 parent: tpl-java
 tools:
-  - podman
-  - podman-compose
+  - podman-full
   - idea-backend:
       memory: 8g
   - vscode-remote
