@@ -1,0 +1,33 @@
+name: incus
+description: Nested Incus daemon for recursive development
+
+packages:
+  - incus
+  - btrfs-progs
+
+run:
+  - systemctl enable --now firewalld
+  - systemctl enable --now incus
+  - usermod -aG incus-admin agentuser
+  - |
+    for i in $(seq 1 30); do
+      incus admin init --minimal 2>/dev/null && break
+      sleep 1
+    done
+  - incus storage create cow btrfs size=10GiB
+
+files:
+  - path: /etc/profile.d/incus-admin.sh
+    content: |
+      # Workaround: Incus exec doesn't call initgroups(), so supplementary
+      # groups are missing. Re-enter via sudo/PAM to activate them.
+      # See https://github.com/Sanne/incus-spawn/issues/415
+      if ! id -Gn 2>/dev/null | grep -qw incus-admin; then
+        if grep -q "\bincus-admin\b.*\b$(id -un)\b" /etc/group 2>/dev/null; then
+          exec 1>&2  # restore stdout — /etc/profile sources profile.d with >/dev/null for non-interactive shells
+          exec sudo -u "$(id -un)" -i
+        fi
+      fi
+
+verify: incus storage list --format csv
+ready: systemctl is-active incus
