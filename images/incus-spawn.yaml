@@ -2,14 +2,24 @@ name: tpl-incus-spawn
 description: Recursive Development of Incus Spawn (isx)
 parent: tpl-mydev-vm
 packages:
-  - incus
   - copr-cli
   - lxc-devel
   - openssl
+tools:
+  - incus
 repos:
   - url: https://github.com/Sanne/incus-spawn/
     path: ~/incus-spawn
-    prime: mvnd install -DskipTests
+    prime: >-
+      mvnd install -DskipTests
+      && env -u JAVA_TOOL_OPTIONS ~/incus-spawn/install.sh
+      && yes | isx init
+      && isx proxy install
+      && sed -i
+      -e '0,/apiKey: ""/s//apiKey: "placeholder"/'
+      -e 's/token: ""/token: "placeholder"/'
+      -e 's|^searchPaths: \[\]|searchPaths:\n- ~/incus-spawn-templates|'
+      ~/.config/incus-spawn/config.yaml
   - url: https://github.com/yrodiere/incus-spawn-templates/
     path: ~/incus-spawn-templates
   - url: https://github.com/yrodiere/incus-spawn-images/
