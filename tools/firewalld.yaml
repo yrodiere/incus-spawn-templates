@@ -1,8 +1,9 @@
 name: firewalld
-description: Firewall with trusted bridge zone for container networking
+description: Firewall with permissive defaults for container networking
 
 packages:
   - firewalld
 
 run:
   - systemctl enable --now firewalld
+  - firewall-cmd --set-default-zone=trusted
