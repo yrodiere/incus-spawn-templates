@@ -6,7 +6,6 @@ packages:
   - btrfs-progs
 
 run:
-  - systemctl enable --now firewalld
   - systemctl enable --now incus
   - usermod -aG incus-admin agentuser
   - |

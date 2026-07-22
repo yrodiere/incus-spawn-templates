@@ -1,0 +1,10 @@
+name: firewalld
+description: Firewall with permissive defaults for container networking
+
+packages:
+  - dbus-broker
+  - firewalld
+
+run:
+  - systemctl enable --now firewalld
+  - firewall-cmd --set-default-zone=trusted
