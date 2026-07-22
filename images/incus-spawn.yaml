@@ -6,6 +6,7 @@ packages:
   - lxc-devel
   - openssl
 tools:
+  - firewalld
   - incus
 repos:
   - url: https://github.com/Sanne/incus-spawn/

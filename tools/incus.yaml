@@ -1,9 +1,6 @@
 name: incus
 description: Nested Incus daemon for recursive development
 
-requires:
-  - firewalld
-
 packages:
   - incus
   - btrfs-progs
@@ -17,12 +14,6 @@ run:
       sleep 1
     done
   - incus storage create cow btrfs size=10GiB
-  # Trust the Incus bridge so containers can talk to the host and reach the internet.
-  - firewall-cmd --zone=trusted --change-interface=incusbr0 --permanent
-  - firewall-cmd --zone=trusted --add-masquerade --permanent
-  - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -i incusbr0 -j ACCEPT
-  - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -o incusbr0 -j ACCEPT
-  - firewall-cmd --reload
 
 files:
   - path: /etc/profile.d/incus-admin.sh
