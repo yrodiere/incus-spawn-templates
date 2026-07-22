@@ -1,13 +1,14 @@
 name: incus
 description: Nested Incus daemon for recursive development
 
+requires:
+  - firewalld
+
 packages:
   - incus
   - btrfs-progs
-  - firewalld
 
 run:
-  - systemctl enable --now firewalld
   - systemctl enable --now incus
   - usermod -aG incus-admin agentuser
   - |

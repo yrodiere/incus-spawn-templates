@@ -1,0 +1,8 @@
+name: firewalld
+description: Firewall with trusted bridge zone for container networking
+
+packages:
+  - firewalld
+
+run:
+  - systemctl enable --now firewalld
