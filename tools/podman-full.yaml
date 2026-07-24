@@ -7,13 +7,6 @@ requires:
 packages:
   - podman-compose
 
-run:
-  # Workaround: incus exec bypasses PAM, so no systemd user instance
-  # starts for agentuser. Rootless podman needs it for cgroup management
-  # and falls back to cgroupfs with noisy warnings without it.
-  # See https://github.com/Sanne/incus-spawn/issues/415
-  - loginctl enable-linger agentuser
-
 files:
   - path: /etc/containers/registries.conf.d/10-short-names.conf
     content: |
