@@ -1,0 +1,24 @@
+name: tpl-hibernate-deps
+description: Hibernate Common Dependencies Dev
+parent: tpl-hibernate-orm
+repos:
+  - url: https://github.com/hibernate/hibernate-models.git
+    path: ~/hibernate-models
+    prime: ./gradlew dependencies
+  - url: https://github.com/hibernate/hibernate-asciidoctor-extensions.git
+    path: ~/asciidoctor-extensions
+    prime: mvnd clean install -DskipTests
+  - url: https://github.com/hibernate/hibernate-asciidoctor-theme.git
+    path: ~/asciidoctor-theme
+    prime: mvnd clean install -DskipTests
+  - url: https://github.com/hibernate/hibernate-develocity-maven-extension.git
+    path: ~/develocity-maven-extension
+    prime: mvnd clean install -DskipTests
+  - url: https://github.com/hibernate/hibernate-matrix-testing.git
+    path: ~/matrix-testing
+    prime: ./gradlew build -x test
+  - url: https://github.com/hibernate/version-injection-plugin.git
+    path: ~/version-injection-plugin
+    prime: ./gradlew build -x test
+  - url: https://github.com/hibernate/jakarta-tck-runner.git
+    path: ~/jakarta-tck-runner
