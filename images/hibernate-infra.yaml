@@ -14,7 +14,5 @@ repos:
     path: ~/release-scripts
   - url: https://github.com/hibernate/hibernate-release-checker.git
     path: ~/release-checker
-  - url: https://github.com/hibernate/replicate-jira-config-hibernate.git
-    path: ~/replicate-jira-config-hibernate
   - url: https://github.com/hibernate/awestruct-build-env.git
     path: ~/awestruct-build-env
