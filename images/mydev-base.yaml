@@ -16,3 +16,9 @@ packages:
   - zsh
   - tree
   - unzip
+  - gawk
+  - make
+  - patch
+  - lsof
+  - file
+  - wget
