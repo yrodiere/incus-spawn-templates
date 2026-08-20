@@ -12,6 +12,15 @@ tools:
       editor-mode: vim
 skills:
   - yrodiere/claude-skills
+files:
+  - path: /home/agentuser/.claude/CLAUDE.md
+    owner: agentuser
+    content: |
+      At the start of each session, load the `incus-spawn` skill.
+      This environment is an incus-spawn VM with sudo access and a minimal package set.
+
+      Before any `git push` or `gh pr create`, load the `git-agent-account` skill.
+      You are authenticated as a dedicated agent account, not the repo owner.
 host-resources:
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
     path: ~/.zshrc
