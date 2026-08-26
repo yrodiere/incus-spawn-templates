@@ -5,6 +5,7 @@ default-action: claude
 tools:
   - zsh
   - mvnd
+  - bob
   - claude:
       model: claude-opus-4-6
       attribution-commit: "Assisted-By: Claude Code <noreply@anthropic.com>"
