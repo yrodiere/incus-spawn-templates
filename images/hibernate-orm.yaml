@@ -7,3 +7,6 @@ repos:
   - url: https://github.com/hibernate/hibernate-orm.git
     path: ~/hibernate-orm
     prime: ./gradlew dependencies
+  - url: https://github.com/hibernate/hibernate-models.git
+    path: ~/hibernate-models
+    prime: ./gradlew dependencies
