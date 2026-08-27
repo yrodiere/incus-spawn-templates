@@ -1,0 +1,51 @@
+name: opencode
+description: Open source AI coding agent (opencode.ai)
+packages:
+  - nodejs
+parameters:
+  model:
+    type: string
+    description: "Model identifier (format: provider/model, e.g. anthropic/claude-opus-4-6)"
+    optional: true
+    reconfigurable: true
+  small-model:
+    type: string
+    description: "Model for lightweight tasks (falls back to a cheaper model from your provider, or to the main model)"
+    optional: true
+    reconfigurable: true
+run:
+  - npm install -g opencode-ai@latest
+run_as_user:
+  - |
+    mkdir -p ~/.config/opencode
+    m='${param_model}'
+    sm='${param_small-model}'
+    printf '{\n  "$schema": "https://opencode.ai/config.json"' > ~/.config/opencode/opencode.json
+    case "$m" in '${param_'*) ;; *) printf ',\n  "model": "%s"' "$m" >> ~/.config/opencode/opencode.json ;; esac
+    case "$sm" in '${param_'*) ;; *) printf ',\n  "small_model": "%s"' "$sm" >> ~/.config/opencode/opencode.json ;; esac
+    printf '\n}\n' >> ~/.config/opencode/opencode.json
+files:
+  - path: /etc/opencode/opencode.json
+    content: |
+      {
+        "$schema": "https://opencode.ai/config.json",
+        "autoupdate": false,
+        "share": "disabled",
+        "provider": {
+          "anthropic": {
+            "options": {
+              "apiKey": "{env:ANTHROPIC_API_KEY}"
+            }
+          }
+        }
+      }
+env:
+  - name: ANTHROPIC_API_KEY
+    value: sk-ant-placeholder
+    strategy: set-if-unset
+verify: opencode --version
+actions:
+  - label: "OpenCode"
+    type: shell
+    command: opencode
+    auto_return: true
