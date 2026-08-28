@@ -30,8 +30,6 @@ host-resources:
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
     path: ~/.zshrc
     mode: copy
-  - source: ~/.m2/repository
-    mode: overlay
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
     path: ~/.gitconfig
     mode: copy
