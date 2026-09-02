@@ -8,6 +8,11 @@ packages:
 run_as_user:
   - |
     curl -fsSL https://get.sdkman.io | bash
+    # Auto-accept installs (non-interactive) and disable the startup
+    # healthcheck: it shells out to curl and can fail during early boot
+    # when DNS/network isn't ready, blocking all sdk commands.
+    sed -i 's/^sdkman_auto_answer=false/sdkman_auto_answer=true/' "$HOME/.sdkman/etc/config"
+    sed -i 's/^sdkman_healthcheck_enable=true/sdkman_healthcheck_enable=false/' "$HOME/.sdkman/etc/config"
 
 files:
   - path: /home/agentuser/.zprofile
