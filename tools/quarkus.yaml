@@ -1,0 +1,12 @@
+name: quarkus
+description: Quarkus CLI
+
+requires:
+  - sdkman
+
+run_as_user:
+  - |
+    source ~/.sdkman/bin/sdkman-init.sh
+    sdk install quarkus
+
+verify: test -x /home/agentuser/.sdkman/candidates/quarkus/current/bin/quarkus
