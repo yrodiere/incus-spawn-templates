@@ -13,7 +13,7 @@ tools:
       small-model: anthropic/claude-haiku-4-5
   - claude:
       model: claude-opus-4-6
-      attribution-commit: "Assisted-By: Claude Code <noreply@anthropic.com>"
+      attribution-commit: ""
       attribution-pr: ""
       editor-mode: vim
 skills:
