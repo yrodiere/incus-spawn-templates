@@ -6,7 +6,6 @@
 [pull]
 	rebase = true
 [push]
-	default = upstream
 	autoSetupRemote = true
 [merge]
 	conflictstyle = diff3
@@ -17,13 +16,11 @@
 	renames = copies
 	renameLimit = 9999
 [receive]
-	# Allow force-push
+	# Allow force-push from host
 	denyNonFastForwards = 0
 	updateserverinfo = 1
 [http]
 	sslVerify = true
-[credential]
-#	helper = cache --timeout=7200
 [alias]
 	amend = commit --amend
 	force = push --force-with-lease
@@ -41,3 +38,11 @@
 	abort = !git rebase --abort 2>/dev/null || git cherry-pick --abort 2>/dev/null
 [log]
 	follow = true
+[commit]
+	cleanup = strip
+	signOff = true
+[fetch]
+	prune = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+	insteadOf = gh:
