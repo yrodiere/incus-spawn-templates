@@ -1,0 +1,22 @@
+name: atlassian-mcp
+description: Atlassian MCP server for Jira and Confluence
+requires:
+  - claude
+proxy:
+  config-namespace: atlassian
+  configuration:
+    email:
+      config-path: "email"
+      description: "Atlassian account email"
+    api-token:
+      config-path: "apiToken"
+      description: "Atlassian personal API token"
+      secret: true
+  auth:
+    - domains:
+        - mcp.atlassian.com
+      type: basic
+      username: "${email}"
+      password: "${api-token}"
+run_as_user:
+  - claude mcp add -t http -s user atlassian https://mcp.atlassian.com/v1/mcp
