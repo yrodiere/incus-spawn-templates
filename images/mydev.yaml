@@ -6,8 +6,7 @@ tools:
   - zsh
   - mvnd
   - quarkus
-  # Doesn't work, see https://quarkusio.zulipchat.com/#narrow/channel/187038-dev/topic/Incus.20Spawn.20.28isx.29.20-.20bob/with/619499834
-  #- bob
+  - bob
   - opencode:
       model: anthropic/claude-opus-4-6
       small-model: anthropic/claude-haiku-4-5
