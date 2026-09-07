@@ -14,9 +14,6 @@ repos:
   - url: https://github.com/hibernate/hibernate-develocity-maven-extension.git
     path: ~/develocity-maven-extension
     prime: mvnd clean install -DskipTests
-  - url: https://github.com/hibernate/hibernate-matrix-testing.git
-    path: ~/matrix-testing
-    prime: ./gradlew build -x test
   - url: https://github.com/hibernate/version-injection-plugin.git
     path: ~/version-injection-plugin
     prime: ./gradlew build -x test
