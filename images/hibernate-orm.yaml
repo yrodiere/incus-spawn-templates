@@ -3,6 +3,7 @@ description: Hibernate ORM development (JDK + Maven + source)
 parent: tpl-mydev
 tools:
   - podman
+  - atlassian-mcp
 repos:
   - url: https://github.com/hibernate/hibernate-orm.git
     path: ~/hibernate-orm

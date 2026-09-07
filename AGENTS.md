@@ -152,6 +152,7 @@ Each YAML file in `tools/` defines a tool. All fields optional except `name`.
 | `ready` | string | Readiness check at instance start time (e.g. `systemctl is-active sshd`). |
 | `parameters` | map | Build-time parameters (see [Parameters](#parameters)). |
 | `actions` | list | TUI/CLI actions (see [Actions](#actions)). |
+| `proxy` | list | MITM proxy entries for credential injection (see [Proxy Entries](#proxy-entries)). |
 
 ### Execution Order
 
@@ -232,6 +233,39 @@ actions:
 
 Template variables: `${ip}`, `${name}`, `${parent}`. With `expand: repos`: `${repo_name}`, `${repo_path}`, `${repo_url}`.
 
+### Proxy Entries
+
+Tools can extend the MITM proxy with additional intercepted domains and credential injection rules:
+
+```yaml
+proxy:
+  config-namespace: atlassian                # required, unique prefix for config-path isolation
+  configuration:                             # credential definitions
+    email:
+      config-path: "email"                   # relative to config-namespace in config.yaml
+      description: "Atlassian email"         # shown during isx init
+    api-token:
+      config-path: "apiToken"               # stored as atlassian.apiToken in config.yaml
+      description: "API token"
+      secret: true                           # use password input (default: false)
+  auth:
+    - domains:                               # list of domains to intercept
+        - mcp.atlassian.com
+      type: basic                            # basic | bearer | header
+      username: "${email}"                   # ${key} references configuration entries
+      password: "${api-token}"
+```
+
+Auth types:
+
+| Type | Fields | Injected Header |
+|---|---|---|
+| `basic` | `username`, `password` (`${key}` refs) | `Authorization: Basic base64(user:pass)` |
+| `bearer` | `token` (`${key}` ref) | `Authorization: Bearer <token>` |
+| `header` | `name`, `value` (with `${key}` substitution) | Custom name and value |
+
+`config-namespace` isolates each tool's config paths — a tool with namespace `atlassian` and `config-path: "email"` resolves to `atlassian.email` in `config.yaml`. Credentials are configured via `isx init` (tools with proxy entries appear as menu items). The proxy injects credentials transparently — containers only hold placeholder values.
+
 ---
 
 ## Environment Variables
@@ -308,7 +342,7 @@ Java-only tools (no YAML, implemented in isx code): `claude`, `gh`, `pi`.
 - **Auto-set vars:** `ISX_CONTAINER`, `ISX_TEMPLATE`, `JAVA_TOOL_OPTIONS` (truststore for MITM CA)
 - **Git:** HTTPS only (SSH URLs don't work through the proxy)
 - **Credentials:** Containers hold placeholders (`sk-ant-placeholder`, `gho_placeholder`). The host MITM proxy injects real credentials into HTTPS traffic transparently.
-- **Credential gate:** Building a template that includes `claude`/`pi` requires Anthropic auth; `gh` requires a GitHub token; `bob` requires a Bob API key — all configured on the host via `isx init`.
+- **Credential gate:** Building a template that includes `claude`/`pi` requires Anthropic auth; `gh` requires a GitHub token; `bob` requires a Bob API key — all configured on the host via `isx init`. Tools with `proxy:` entries produce a warning (not a hard error) if their credentials are unconfigured.
 
 ---
 
