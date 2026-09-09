@@ -42,4 +42,4 @@ host-resources:
     mode: copy
   - source: ~/.ssh/agent-authorized-keys
     path: .ssh/authorized-keys
-    mode: readonly
+    mode: copy

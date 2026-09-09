@@ -12,7 +12,7 @@ repos:
   - url: https://github.com/Sanne/incus-spawn/
     path: ~/incus-spawn
     prime: >-
-      mvnd install -DskipTests
+      mvn -B install -DskipTests
       && env -u JAVA_TOOL_OPTIONS ~/incus-spawn/install.sh
       && yes | isx init
       && isx proxy install

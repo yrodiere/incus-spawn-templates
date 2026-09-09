@@ -4,4 +4,4 @@ parent: tpl-mydev
 repos:
   - url: https://github.com/hibernate/hibernate-validator.git
     path: ~/hibernate-validator
-    prime: mvnd dependency:go-offline
+    prime: mvn -B dependency:go-offline
