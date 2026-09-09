@@ -3,16 +3,19 @@ description: My own dev environment
 parent: tpl-mydev-base
 default-action: claude
 tools:
+  - idea-backend:
+      memory: 8g
   - gh
-  - headroom
-  - opencode:
-      model: anthropic/claude-opus-4-6
-      small-model: anthropic/claude-haiku-4-5
   - claude:
       model: claude-opus-4-6
       attribution-commit: ""
       attribution-pr: ""
       editor-mode: vim
+  # headroom — disabled until Sanne/incus-spawn#670 is fixed
+  #- headroom
+  - opencode:
+      model: anthropic/claude-opus-4-6
+      small-model: anthropic/claude-haiku-4-5
 skills:
   - yrodiere/claude-skills
 files:

@@ -5,10 +5,8 @@ tools:
   #- tmux
   #- starship
   - sdkman-java
-  - maven-3
+  - sdkman-maven
   - podman-full
-  - idea-backend:
-      memory: 8g
   - vscode-remote
   - sdkman
   - zsh
