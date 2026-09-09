@@ -4,20 +4,20 @@ parent: tpl-mydev
 repos:
   - url: https://github.com/quarkusio/quarkus-github-lottery.git
     path: ~/lottery
-    prime: mvn -B clean install -DskipTests
+    prime: mvnd clean install -DskipTests
   - url: https://github.com/quarkusio/quarkus-github-bot.git
     path: ~/bot
-    prime: mvn -B clean install -DskipTests
+    prime: mvnd clean install -DskipTests
   - url: https://github.com/quarkusio/search.quarkus.io.git
     path: ~/search
     # Does not work for some reason
     #prime: mvn clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-action.git
     path: ~/github-action
-    prime: mvn -B clean install -DskipTests
+    prime: mvnd clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-app.git
     path: ~/github-app
-    prime: mvn -B clean install -DskipTests
+    prime: mvnd clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-api.git
     path: ~/github-api
-    prime: mvn -B clean install -DskipTests
+    prime: mvnd clean install -DskipTests

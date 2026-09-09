@@ -7,8 +7,8 @@ requires:
 parameters:
   version:
     type: string
-    default: "3.9.9"
-    description: "Maven version (e.g. 3.9.9, 4.0.0)"
+    default: "3.9.16"
+    description: "Maven version (e.g. 3.9.16, 4.0.0)"
 
 run_as_user:
   - |

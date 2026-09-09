@@ -4,7 +4,7 @@ parent: tpl-mydev
 repos:
   - url: https://github.com/wildfly/wildfly-core.git
     path: ~/wildfly-core
-    prime: mvn -B install -DskipTests
+    prime: mvnd install -DskipTests
   - url: https://github.com/wildfly/wildfly.git
     path: ~/wildfly
-    prime: mvn -B install -DskipTests
+    prime: mvnd install -DskipTests
