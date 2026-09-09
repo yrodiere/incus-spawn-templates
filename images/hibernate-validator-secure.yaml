@@ -1,6 +1,6 @@
 name: hibernate-validator-secure
 description: Hibernate Validator development, secure (no AI coding tools except Bob)
-parent: tpl-secure-mydev
+parent: tpl-mydev-secure
 repos:
   - url: https://github.com/hibernate/hibernate-validator.git
     path: ~/hibernate-validator

@@ -13,6 +13,7 @@ tools:
   - mvnd
   - quarkus
   - bob
+  - gh
 packages:
   - tig
   - neovim
@@ -27,3 +28,18 @@ packages:
   - lsof
   - file
   - wget
+host-resources:
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
+    path: ~/.zshrc
+    mode: copy
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
+    path: ~/.gitconfig
+    mode: copy
+  - source: ~/.local/share/containers/storage
+    path: /mnt/podman-host-storage
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/podman-storage.conf
+    path: /etc/containers/storage.conf
+    mode: copy
+  - source: ~/.ssh/agent-authorized-keys
+    path: .ssh/authorized-keys
+    mode: readonly

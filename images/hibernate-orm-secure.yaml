@@ -1,6 +1,6 @@
 name: hibernate-orm-secure
 description: Hibernate ORM development, secure (no AI coding tools except Bob)
-parent: tpl-secure-mydev
+parent: tpl-mydev-secure
 tools:
   - podman
 repos:
