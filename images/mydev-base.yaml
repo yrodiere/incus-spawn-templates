@@ -4,14 +4,14 @@ parent: tpl-minimal
 tools:
   #- tmux
   #- starship
+  - sdkman
   - sdkman-java
   - sdkman-maven
+  - sdkman-quarkus
   - podman-full
   - vscode-remote
-  - sdkman
   - zsh
   - mvnd
-  - quarkus
   - bob
   - gh
 packages:
