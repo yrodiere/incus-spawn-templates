@@ -7,8 +7,8 @@ requires:
 parameters:
   version:
     type: string
-    default: "25-open"
-    description: "SDKMAN! Java version identifier (e.g. 25-open, 21-open, 17.0.13-tem)"
+    default: "25.0.4-tem"
+    description: "SDKMAN! Java version identifier (e.g. 25.0.4-tem, 21-tem, 25-open)"
 
 run_as_user:
   - |
