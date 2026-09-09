@@ -6,4 +6,4 @@ tools:
 repos:
   - url: https://github.com/hibernate/hibernate-search.git
     path: ~/hibernate-search
-    prime: mvnd package -DskipTests
+    prime: mvn -B package -DskipTests

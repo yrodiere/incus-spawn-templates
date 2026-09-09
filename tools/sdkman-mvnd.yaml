@@ -1,4 +1,4 @@
-name: mvnd
+name: sdkman-mvnd
 description: Maven Daemon (mvnd) for faster Maven builds
 
 requires:

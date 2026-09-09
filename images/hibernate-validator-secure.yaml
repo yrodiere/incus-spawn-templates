@@ -4,4 +4,4 @@ parent: tpl-mydev-secure
 repos:
   - url: https://github.com/hibernate/hibernate-validator.git
     path: ~/hibernate-validator
-    prime: mvnd package -DskipTests
+    prime: mvn -B package -DskipTests

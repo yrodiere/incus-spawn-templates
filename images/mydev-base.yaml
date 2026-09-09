@@ -11,7 +11,7 @@ tools:
   - podman-full
   - vscode-remote
   - zsh
-  - mvnd
+  - sdkman-mvnd
   - bob
   - gh
 packages:

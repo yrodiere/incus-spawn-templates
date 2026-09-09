@@ -7,13 +7,13 @@ repos:
     prime: ./gradlew dependencies
   - url: https://github.com/hibernate/hibernate-asciidoctor-extensions.git
     path: ~/asciidoctor-extensions
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/hibernate/hibernate-asciidoctor-theme.git
     path: ~/asciidoctor-theme
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/hibernate/hibernate-develocity-maven-extension.git
     path: ~/develocity-maven-extension
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/hibernate/version-injection-plugin.git
     path: ~/version-injection-plugin
     prime: ./gradlew build -x test
