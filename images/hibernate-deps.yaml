@@ -1,6 +1,6 @@
-name: tpl-hibernate-deps
+name: hibernate-deps
 description: Hibernate Common Dependencies Dev
-parent: tpl-hibernate-orm
+parent: hibernate-orm
 repos:
   - url: https://github.com/hibernate/hibernate-models.git
     path: ~/hibernate-models

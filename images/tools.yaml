@@ -1,4 +1,4 @@
-name: tpl-tools
+name: tools
 description: Development Tools
 parent: tpl-mydev
 repos:

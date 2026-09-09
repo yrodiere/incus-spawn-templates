@@ -1,6 +1,6 @@
-name: hibernate-orm
-description: Hibernate ORM development (JDK + Maven + source)
-parent: tpl-mydev
+name: hibernate-orm-secure
+description: Hibernate ORM development, secure (no AI coding tools except Bob)
+parent: tpl-secure-mydev
 tools:
   - podman
 repos:

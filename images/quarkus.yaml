@@ -1,4 +1,4 @@
-name: tpl-quarkus
+name: quarkus
 description: Quarkus development (JDK + Maven + Quarkus source)
 parent: tpl-mydev
 repos:

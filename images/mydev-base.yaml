@@ -1,13 +1,20 @@
 name: tpl-mydev-base
 description: Base for tpl-mydev, with the slow, hopefully rarely-updated part of setup.
-parent: tpl-java
+parent: tpl-minimal
 tools:
+  #- tmux
+  #- starship
+  - sdkman-java
+  - maven-3
   - podman-full
   - idea-backend:
       memory: 8g
   - vscode-remote
   - sdkman
-  - headroom
+  - zsh
+  - mvnd
+  - quarkus
+  - bob
 packages:
   - tig
   - neovim

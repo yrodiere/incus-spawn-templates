@@ -1,4 +1,4 @@
-name: tpl-wildfly
+name: wildfly
 description: WildFly development (JDK + Maven + source)
 parent: tpl-mydev
 repos:

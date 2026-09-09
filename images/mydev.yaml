@@ -3,10 +3,8 @@ description: My own dev environment
 parent: tpl-mydev-base
 default-action: claude
 tools:
-  - zsh
-  - mvnd
-  - quarkus
-  - bob
+  - gh
+  - headroom
   - opencode:
       model: anthropic/claude-opus-4-6
       small-model: anthropic/claude-haiku-4-5

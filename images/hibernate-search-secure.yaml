@@ -1,6 +1,6 @@
-name: hibernate-search
-description: Hibernate Search development (JDK + Maven + source)
-parent: tpl-mydev
+name: hibernate-search-secure
+description: Hibernate Search development, secure (no AI coding tools except Bob)
+parent: tpl-secure-mydev
 tools:
   - podman
 repos:

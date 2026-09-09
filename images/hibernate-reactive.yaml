@@ -1,6 +1,6 @@
-name: tpl-hibernate-reactive
+name: hibernate-reactive
 description: Hibernate Reactive development (JDK + Maven + source, includes Hibernate ORM sources)
-parent: tpl-hibernate-orm
+parent: hibernate-orm
 repos:
   - url: https://github.com/hibernate/hibernate-reactive.git
     path: ~/hibernate-reactive

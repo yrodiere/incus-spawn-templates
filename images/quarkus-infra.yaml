@@ -1,4 +1,4 @@
-name: tpl-quarkus-infra
+name: quarkus-infra
 description: Quarkus Infra Dev
 parent: tpl-mydev
 repos:

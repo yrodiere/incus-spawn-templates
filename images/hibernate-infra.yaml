@@ -1,4 +1,4 @@
-name: tpl-hibernate-infra
+name: hibernate-infra
 description: Hibernate Infra Dev
 parent: tpl-mydev
 repos:

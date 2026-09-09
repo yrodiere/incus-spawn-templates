@@ -1,4 +1,4 @@
-name: tpl-hibernate-validator
+name: hibernate-validator
 description: Hibernate Validator development (JDK + Maven + source)
 parent: tpl-mydev
 repos:

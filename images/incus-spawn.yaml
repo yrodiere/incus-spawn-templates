@@ -1,4 +1,4 @@
-name: tpl-incus-spawn
+name: incus-spawn
 description: Recursive Development of Incus Spawn (isx)
 parent: tpl-mydev-vm
 packages:
