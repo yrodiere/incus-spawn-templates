@@ -1,0 +1,9 @@
+name: tpl-hibernate-search
+description: Hibernate Search development (JDK + Maven + source)
+parent: tpl-mydev
+tools:
+  - podman
+repos:
+  - url: https://github.com/hibernate/hibernate-search.git
+    path: ~/hibernate-search
+    prime: mvnd dependency:go-offline
