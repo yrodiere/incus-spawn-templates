@@ -1,4 +1,4 @@
-name: tpl-tamboui
+name: tamboui
 description: TamboUI (JDK + source)
 parent: tpl-mydev
 repos:

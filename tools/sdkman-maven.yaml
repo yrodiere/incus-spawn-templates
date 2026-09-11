@@ -1,0 +1,18 @@
+name: sdkman-maven
+description: Apache Maven installed via SDKMAN!
+
+requires:
+  - sdkman
+
+parameters:
+  version:
+    type: string
+    default: "3.9.16"
+    description: "Maven version (e.g. 3.9.16, 4.0.0)"
+
+run_as_user:
+  - |
+    source ~/.sdkman/bin/sdkman-init.sh
+    sdk install maven ${param_version}
+
+verify: test -x /home/agentuser/.sdkman/candidates/maven/current/bin/mvn

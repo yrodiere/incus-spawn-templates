@@ -1,0 +1,4 @@
+name: tpl-mydev-secure
+description: Secure dev environment (no AI coding tools except Bob)
+parent: tpl-mydev-base
+default-action: bob

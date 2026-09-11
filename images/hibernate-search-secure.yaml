@@ -1,0 +1,9 @@
+name: hibernate-search-secure
+description: Hibernate Search development, secure (no AI coding tools except Bob)
+parent: tpl-mydev-secure
+tools:
+  - podman
+repos:
+  - url: https://github.com/hibernate/hibernate-search.git
+    path: ~/hibernate-search
+    prime: mvn -B package -DskipTests

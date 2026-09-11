@@ -1,6 +1,6 @@
-name: tpl-quarkus-aot
+name: quarkus-aot
 description: Quarkus AOT experiments
-parent: tpl-quarkus
+parent: quarkus
 repos:
   - url: https://github.com/gsmet/quarkus-aot
     path: ~/quarkus-aot

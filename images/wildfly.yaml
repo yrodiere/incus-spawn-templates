@@ -1,10 +1,10 @@
-name: tpl-wildfly
+name: wildfly
 description: WildFly development (JDK + Maven + source)
 parent: tpl-mydev
 repos:
   - url: https://github.com/wildfly/wildfly-core.git
     path: ~/wildfly-core
-    prime: mvnd install -DskipTests
+    prime: mvn -B install -DskipTests
   - url: https://github.com/wildfly/wildfly.git
     path: ~/wildfly
-    prime: mvnd install -DskipTests
+    prime: mvn -B install -DskipTests

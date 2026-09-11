@@ -3,18 +3,18 @@ description: My own dev environment
 parent: tpl-mydev-base
 default-action: claude
 tools:
-  - zsh
-  - mvnd
-  - quarkus
-  - bob
-  - opencode:
-      model: anthropic/claude-opus-4-6
-      small-model: anthropic/claude-haiku-4-5
+  - idea-backend:
+      memory: 8g
   - claude:
       model: claude-opus-4-6
       attribution-commit: ""
       attribution-pr: ""
       editor-mode: vim
+  # headroom — disabled until Sanne/incus-spawn#670 is fixed
+  #- headroom
+  - opencode:
+      model: anthropic/claude-opus-4-6
+      small-model: anthropic/claude-haiku-4-5
 skills:
   - yrodiere/claude-skills
 files:
@@ -26,18 +26,3 @@ files:
 
       Before any `git push` or `gh pr create`, load the `git-agent-account` skill.
       You are authenticated as a dedicated agent account, not the repo owner.
-host-resources:
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
-    path: ~/.zshrc
-    mode: copy
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
-    path: ~/.gitconfig
-    mode: copy
-  - source: ~/.local/share/containers/storage
-    path: /mnt/podman-host-storage
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/podman-storage.conf
-    path: /etc/containers/storage.conf
-    mode: copy
-  - source: ~/.ssh/agent-authorized-keys
-    path: .ssh/authorized-keys
-    mode: readonly

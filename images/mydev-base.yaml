@@ -1,13 +1,19 @@
 name: tpl-mydev-base
 description: Base for tpl-mydev, with the slow, hopefully rarely-updated part of setup.
-parent: tpl-java
+parent: tpl-minimal
 tools:
-  - podman-full
-  - idea-backend:
-      memory: 8g
-  - vscode-remote
+  #- tmux
+  #- starship
   - sdkman
-  - headroom
+  - sdkman-java
+  - sdkman-maven
+  - sdkman-quarkus
+  - podman-full
+  - vscode-remote
+  - zsh
+  - sdkman-mvnd
+  - bob
+  - gh
 packages:
   - tig
   - neovim
@@ -22,3 +28,18 @@ packages:
   - lsof
   - file
   - wget
+host-resources:
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
+    path: ~/.zshrc
+    mode: copy
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
+    path: ~/.gitconfig
+    mode: copy
+  - source: ~/.local/share/containers/storage
+    path: /mnt/podman-host-storage
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/podman-storage.conf
+    path: /etc/containers/storage.conf
+    mode: copy
+  - source: ~/.ssh/agent-authorized-keys
+    path: .ssh/authorized-keys
+    mode: copy

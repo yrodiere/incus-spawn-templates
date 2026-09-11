@@ -1,23 +1,23 @@
-name: tpl-quarkus-infra
+name: quarkus-infra
 description: Quarkus Infra Dev
 parent: tpl-mydev
 repos:
   - url: https://github.com/quarkusio/quarkus-github-lottery.git
     path: ~/lottery
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/quarkusio/quarkus-github-bot.git
     path: ~/bot
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/quarkusio/search.quarkus.io.git
     path: ~/search
     # Does not work for some reason
     #prime: mvn clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-action.git
     path: ~/github-action
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-app.git
     path: ~/github-app
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests
   - url: https://github.com/quarkiverse/quarkus-github-api.git
     path: ~/github-api
-    prime: mvnd clean install -DskipTests
+    prime: mvn -B clean install -DskipTests

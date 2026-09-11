@@ -1,5 +1,5 @@
-name: quarkus
-description: Quarkus CLI
+name: sdkman-quarkus
+description: Quarkus CLI installed via SDKMAN!
 
 requires:
   - sdkman

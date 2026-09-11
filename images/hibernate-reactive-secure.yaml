@@ -1,0 +1,7 @@
+name: hibernate-reactive-secure
+description: Hibernate Reactive development, secure (no AI coding tools except Bob)
+parent: hibernate-orm-secure
+repos:
+  - url: https://github.com/hibernate/hibernate-reactive.git
+    path: ~/hibernate-reactive
+    prime: ./gradlew dependencies

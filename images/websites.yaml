@@ -1,4 +1,4 @@
-name: tpl-websites
+name: websites
 description: Hibernate Website Dev
 parent: tpl-mydev
 tools:
