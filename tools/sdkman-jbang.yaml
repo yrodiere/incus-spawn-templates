@@ -1,0 +1,12 @@
+name: sdkman-jbang
+description: JBang — run Java scripts and apps without build tools
+
+requires:
+  - sdkman
+
+run_as_user:
+  - |
+    source ~/.sdkman/bin/sdkman-init.sh
+    sdk install jbang
+
+verify: test -x /home/agentuser/.sdkman/candidates/jbang/current/bin/jbang

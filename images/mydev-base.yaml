@@ -12,6 +12,7 @@ tools:
   - vscode-remote
   - zsh
   - sdkman-mvnd
+  - sdkman-jbang
   - bob
   - bob-settings
   - gh
