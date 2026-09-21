@@ -15,3 +15,11 @@
 * Dismissing ideas without proper consideration
 * Superficial agreement or disagreement
 * Flattery that doesn't serve the conversation
+
+## Environment
+
+At the start of each session, load the `incus-spawn` skill.
+This environment is an incus-spawn VM with sudo access and a minimal package set.
+
+Before any `git push` or `gh pr create`, load the `git-agent-account` skill.
+You are authenticated as a dedicated agent account, not the repo owner.

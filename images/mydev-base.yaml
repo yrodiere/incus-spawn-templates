@@ -50,3 +50,5 @@ host-resources:
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
     path: ~/.bob/AGENTS.md
     mode: copy
+skills:
+  - yrodiere/claude-skills
