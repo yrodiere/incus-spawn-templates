@@ -47,3 +47,6 @@ host-resources:
   - source: ~/.ssh/agent-authorized-keys
     path: .ssh/authorized-keys
     mode: copy
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
+    path: ~/.bob/AGENTS.md
+    mode: copy

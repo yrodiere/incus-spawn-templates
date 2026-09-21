@@ -18,8 +18,15 @@ tools:
   - atlassian-mcp
 skills:
   - yrodiere/claude-skills
+host-resources:
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
+    path: ~/.claude/CLAUDE.md
+    mode: copy
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
+    path: ~/.config/opencode/AGENTS.md
+    mode: copy
 files:
-  - path: /home/agentuser/.claude/CLAUDE.md
+  - path: /home/agentuser/.claude/rules/incus-spawn-env.md
     owner: agentuser
     content: |
       At the start of each session, load the `incus-spawn` skill.
