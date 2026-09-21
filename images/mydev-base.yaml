@@ -51,4 +51,4 @@ host-resources:
     path: ~/.bob/AGENTS.md
     mode: copy
 skills:
-  - yrodiere/claude-skills
+  - yrodiere/agent-skills
