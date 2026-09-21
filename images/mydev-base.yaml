@@ -13,8 +13,10 @@ tools:
   - zsh
   - sdkman-mvnd
   - sdkman-jbang
-  - bob
-  - bob-settings
+  - bob:
+      max-session-turns: -1
+      compression-threshold: "0.6"
+      checkpointing: true
   - gh
 packages:
   - tig
