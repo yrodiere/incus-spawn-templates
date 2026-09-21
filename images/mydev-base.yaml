@@ -33,15 +33,15 @@ packages:
   - file
   - wget
 host-resources:
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.zshrc
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/zshrc
     path: ~/.zshrc
     mode: copy
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/.gitconfig
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/gitconfig
     path: ~/.gitconfig
     mode: copy
   - source: ~/.local/share/containers/storage
     path: /mnt/podman-host-storage
-  - source: ~/workspaces/incus-spawn/incus-spawn-templates/podman-storage.conf
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/podman-storage.conf
     path: /etc/containers/storage.conf
     mode: copy
   - source: ~/.ssh/agent-authorized-keys

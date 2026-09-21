@@ -7,6 +7,7 @@ This repo provides custom image and tool definitions for [incus-spawn](https://g
 ```
 images/          # Image definitions (YAML)
 tools/           # Tool definitions (YAML)
+files/           # Static files deployed into containers via host-resources (mode: copy)
 ```
 
 ## Resolution Order
