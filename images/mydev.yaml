@@ -3,8 +3,9 @@ description: My own dev environment
 parent: tpl-mydev-base
 default-action: claude
 tools:
-  - idea-backend:
-      memory: 8g
+  # idea-backend — disabled until mkdir permission issue is resolved
+  #- idea-backend:
+  #    memory: 8g
   - claude:
       model: claude-opus-4-6
       attribution-commit: ""
