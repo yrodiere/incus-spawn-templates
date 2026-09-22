@@ -1,11 +1,13 @@
 name: tpl-mydev
 description: My own dev environment
 parent: tpl-mydev-base
-default-action: claude
+default-action: code-assistant
 tools:
   # idea-backend — disabled until mkdir permission issue is resolved
   #- idea-backend:
   #    memory: 8g
+  - code-assistant:
+      default: claude
   - claude:
       model: claude-opus-4-6
       attribution-commit: ""
