@@ -23,22 +23,25 @@ run:
     declare -a TOOLS
     command -v claude   >/dev/null 2>&1 && TOOLS+=(claude)
     command -v codex    >/dev/null 2>&1 && TOOLS+=(codex)
+    command -v pi       >/dev/null 2>&1 && TOOLS+=(pi)
     command -v bob      >/dev/null 2>&1 && TOOLS+=(bob)
     command -v opencode >/dev/null 2>&1 && TOOLS+=(opencode)
 
     if [ ${#TOOLS[@]} -eq 0 ]; then
-      echo "No code assistants found (claude, codex, bob, opencode)."
+      echo "No code assistants found (claude, codex, pi, bob, opencode)."
       exec bash --login
     fi
 
     # ── Launch helpers ──────────────────────────────────────────────
     launch_claude()  { claude --continue || claude; }
     launch_codex()   { codex resume --last || codex; }
+    launch_pi()      { pi --continue || pi; }
     launch_bob()     { bob chat --resume --auto-approve || bob chat --auto-approve; }
     launch_opencode(){ opencode --continue || opencode; }
 
     start_claude()  { claude; }
     start_codex()   { codex; }
+    start_pi()      { pi; }
     start_bob()     { bob chat --auto-approve; }
     start_opencode(){ opencode; }
 
@@ -59,6 +62,15 @@ run:
           ;;
         codex)
           f=$(find ~/.codex/sessions -name '*.jsonl' -printf '%T@ %p\n' 2>/dev/null \
+              | sort -rn | head -1)
+          if [ -n "$f" ]; then
+            ts=${f%%.*}
+            path=${f#* }
+            dir=$(grep -m1 -o '"cwd":"[^"]*"' "$path" 2>/dev/null | cut -d'"' -f4)
+          fi
+          ;;
+        pi)
+          f=$(find ~/.pi/agent/sessions -name '*.jsonl' -printf '%T@ %p\n' 2>/dev/null \
               | sort -rn | head -1)
           if [ -n "$f" ]; then
             ts=${f%%.*}
