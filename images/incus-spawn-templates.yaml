@@ -1,0 +1,6 @@
+name: incus-spawn-templates
+description: Template-only Development for Incus Spawn (isx)
+parent: tpl-mydev
+repos:
+  - url: https://github.com/yrodiere/incus-spawn-templates/
+    path: ~/incus-spawn-templates
