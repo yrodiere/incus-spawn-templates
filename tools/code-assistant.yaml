@@ -1,0 +1,174 @@
+name: code-assistant
+description: Smart code assistant launcher — resumes the most recent AI coding session
+packages:
+  - sqlite
+parameters:
+  default:
+    type: string
+    description: "Default code assistant for first launch (claude, bob, or opencode)"
+    optional: true
+    reconfigurable: true
+run:
+  - |
+    cat > /usr/local/bin/code-assistant << 'SCRIPT'
+    #!/bin/bash
+    # code-assistant: resumes the most recent AI coding session across
+    # claude, bob, and opencode. On first launch, prompts to pick a
+    # tool and working directory (skipped if there is only one choice).
+
+    DEFAULT_TOOL=$(cat ~/.config/code-assistant-default 2>/dev/null)
+    : "${DEFAULT_TOOL:=claude}"
+
+    # ── Detect installed tools ──────────────────────────────────────
+    declare -a TOOLS
+    command -v claude   >/dev/null 2>&1 && TOOLS+=(claude)
+    command -v codex    >/dev/null 2>&1 && TOOLS+=(codex)
+    command -v bob      >/dev/null 2>&1 && TOOLS+=(bob)
+    command -v opencode >/dev/null 2>&1 && TOOLS+=(opencode)
+
+    if [ ${#TOOLS[@]} -eq 0 ]; then
+      echo "No code assistants found (claude, codex, bob, opencode)."
+      exec bash --login
+    fi
+
+    # ── Launch helpers ──────────────────────────────────────────────
+    launch_claude()  { claude --continue || claude; }
+    launch_codex()   { codex resume --last || codex; }
+    launch_bob()     { bob chat --resume --auto-approve || bob chat --auto-approve; }
+    launch_opencode(){ opencode --continue || opencode; }
+
+    start_claude()  { claude; }
+    start_codex()   { codex; }
+    start_bob()     { bob chat --auto-approve; }
+    start_opencode(){ opencode; }
+
+    # ── Find the most recent session across all installed tools ─────
+    best_tool="" best_dir="" best_ts=0
+
+    for tool in "${TOOLS[@]}"; do
+      ts=0 dir=""
+      case "$tool" in
+        claude)
+          f=$(find ~/.claude/projects -name '*.jsonl' -printf '%T@ %p\n' 2>/dev/null \
+              | sort -rn | head -1)
+          if [ -n "$f" ]; then
+            ts=${f%%.*}
+            path=${f#* }
+            dir=$(grep -m1 -o '"cwd":"[^"]*"' "$path" 2>/dev/null | cut -d'"' -f4)
+          fi
+          ;;
+        codex)
+          f=$(find ~/.codex/sessions -name '*.jsonl' -printf '%T@ %p\n' 2>/dev/null \
+              | sort -rn | head -1)
+          if [ -n "$f" ]; then
+            ts=${f%%.*}
+            path=${f#* }
+            dir=$(grep -m1 -o '"cwd":"[^"]*"' "$path" 2>/dev/null | cut -d'"' -f4)
+          fi
+          ;;
+        bob)
+          row=$(sqlite3 -separator '|' -noheader ~/.bob/db/bob.db \
+            "SELECT updated_at/1000, REPLACE(project_id,'file:','') \
+             FROM tasks WHERE parent_id IS NULL \
+             ORDER BY updated_at DESC LIMIT 1" 2>/dev/null)
+          if [ -n "$row" ]; then
+            ts=${row%%|*}
+            dir=${row#*|}
+          fi
+          ;;
+        opencode)
+          row=$(sqlite3 -separator '|' -noheader ~/.local/share/opencode/opencode.db \
+            "SELECT CAST(strftime('%s', time_updated) AS INTEGER), directory \
+             FROM session ORDER BY time_updated DESC LIMIT 1" 2>/dev/null)
+          if [ -n "$row" ]; then
+            ts=${row%%|*}
+            dir=${row#*|}
+          fi
+          ;;
+      esac
+
+      if [ -n "$dir" ] && [ -d "$dir" ] && [ "$ts" -gt "$best_ts" ] 2>/dev/null; then
+        best_ts=$ts best_tool=$tool best_dir=$dir
+      fi
+    done
+
+    # ── Resume the most recent session ──────────────────────────────
+    if [ -n "$best_tool" ]; then
+      cd "$best_dir" || true
+      "launch_$best_tool"
+      exit $?
+    fi
+
+    # ── First launch — prompt to pick ───────────────────────────────
+    declare -a REPOS
+    while IFS= read -r gitdir; do
+      REPOS+=("$(dirname "$gitdir")")
+    done < <(find ~ -maxdepth 2 -name '.git' -type d 2>/dev/null | sort)
+    [ ${#REPOS[@]} -eq 0 ] && REPOS+=("$(pwd)")
+
+    # Skip prompt if there is only one choice
+    if [ ${#TOOLS[@]} -eq 1 ] && [ ${#REPOS[@]} -le 1 ]; then
+      [ ${#REPOS[@]} -eq 1 ] && cd "${REPOS[0]}"
+      "start_${TOOLS[0]}"
+      exit $?
+    fi
+
+    # Build the options list; put the default first
+    declare -a OPT_LABELS OPT_TOOLS OPT_DIRS
+    default_dir=$(pwd)
+    add_option() {
+      local t=$1 r=$2 n
+      n=$(basename "$r")
+      OPT_LABELS+=("$t  $n  ($r)")
+      OPT_TOOLS+=("$t")
+      OPT_DIRS+=("$r")
+    }
+
+    # Default choice first
+    for r in "${REPOS[@]}"; do
+      [ "$r" = "$default_dir" ] && { add_option "$DEFAULT_TOOL" "$r"; break; }
+    done
+    # Remaining combinations
+    for t in "${TOOLS[@]}"; do
+      for r in "${REPOS[@]}"; do
+        # Skip if already added as default
+        [ "$t" = "$DEFAULT_TOOL" ] && [ "$r" = "$default_dir" ] && continue
+        add_option "$t" "$r"
+      done
+    done
+
+    echo ""
+    echo "  Pick a code assistant and working directory:"
+    echo ""
+    for i in "${!OPT_LABELS[@]}"; do
+      if [ "$i" -eq 0 ]; then
+        printf "    \033[1m%d) %s  [default]\033[0m\n" $((i+1)) "${OPT_LABELS[$i]}"
+      else
+        printf "    %d) %s\n" $((i+1)) "${OPT_LABELS[$i]}"
+      fi
+    done
+    echo ""
+    printf "  Choice [1]: "
+    read -r choice
+    [ -z "$choice" ] && choice=1
+    idx=$((choice - 1))
+
+    if [ "$idx" -lt 0 ] || [ "$idx" -ge "${#OPT_LABELS[@]}" ]; then
+      echo "  Invalid choice."
+      exec bash --login
+    fi
+
+    cd "${OPT_DIRS[$idx]}" || true
+    "start_${OPT_TOOLS[$idx]}"
+    SCRIPT
+    chmod +x /usr/local/bin/code-assistant
+    d='${param_default}'
+    case "$d" in '${param_'*) d=claude ;; esac
+    mkdir -p /home/agentuser/.config
+    echo "$d" > /home/agentuser/.config/code-assistant-default
+    chown -R agentuser:agentuser /home/agentuser/.config
+actions:
+  - label: "Code Assistant"
+    type: shell
+    command: code-assistant
+    auto_return: true

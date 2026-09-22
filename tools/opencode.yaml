@@ -2,6 +2,7 @@ name: opencode
 description: Open source AI coding agent (opencode.ai)
 packages:
   - nodejs
+  - sqlite
 parameters:
   model:
     type: string
@@ -51,5 +52,9 @@ verify: opencode --version
 actions:
   - label: "OpenCode"
     type: shell
-    command: opencode
+    command: >-
+      d=$(sqlite3 -noheader ~/.local/share/opencode/opencode.db
+      "SELECT directory FROM session ORDER BY time_updated DESC LIMIT 1" 2>/dev/null);
+      if [ -n "$d" ] && [ -d "$d" ]; then cd "$d";
+      opencode --continue || opencode; else opencode; fi
     auto_return: true

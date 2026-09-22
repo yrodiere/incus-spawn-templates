@@ -1,7 +1,10 @@
 name: tpl-mydev-secure
 description: Secure dev environment (no AI coding tools except Bob)
 parent: tpl-mydev-base
-default-action: bob
+default-action: code-assistant
+tools:
+  - code-assistant:
+      default: bob
 env:
   - name: GIT_AUTHOR_EMAIL
     value: yrodiere@ibm.com
