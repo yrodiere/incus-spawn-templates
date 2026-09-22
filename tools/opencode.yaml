@@ -15,9 +15,13 @@ parameters:
     reconfigurable: true
 run:
   - npm install -g opencode-ai@latest
+  # Workaround for https://github.com/Sanne/incus-spawn/issues/749
+  # host-resource copy creates ~/.config/opencode/ as root
+  - |
+    mkdir -p /home/agentuser/.config/opencode
+    chown agentuser:agentuser /home/agentuser/.config/opencode
 run_as_user:
   - |
-    mkdir -p ~/.config/opencode
     m='${param_model}'
     sm='${param_small-model}'
     printf '{\n  "$schema": "https://opencode.ai/config.json"' > ~/.config/opencode/opencode.json
