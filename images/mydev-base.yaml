@@ -8,7 +8,10 @@ tools:
   - sdkman-java
   - sdkman-maven
   - sdkman-quarkus
-  - podman-custom
+  - podman:
+      mode: rootless
+      short-names: permissive
+      compose: true
   - vscode-remote
   - zsh
   - sdkman-mvnd
