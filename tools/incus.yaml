@@ -7,7 +7,6 @@ packages:
 
 run:
   - systemctl enable incus
-  - systemctl start incus-startup 2>/dev/null || true
   - systemctl start incus
   - usermod -aG incus-admin agentuser
   - |
