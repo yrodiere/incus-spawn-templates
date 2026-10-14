@@ -30,20 +30,10 @@ repos:
       -e 's/token: ""/token: "placeholder"/'
       -e 's|^searchPaths: \[\]|searchPaths:\n- ~/incus-spawn-templates|'
       -e '$a\host-ca:\n  propagate: true'
+      -e '$a\ready-timeouts:\n  proxy: 60s'
       ~/.config/incus-spawn/config.yaml;
       echo '==> [5/5] Installing isx proxy (isx proxy install)...';
-      isx proxy install </dev/null 2>&1 || true;
-      GATEWAY=$(incus network get incusbr0 ipv4.address 2>/dev/null | cut -d/ -f1);
-      for _i in $(seq 1 60); do
-        curl -sf "http://${GATEWAY}:18080/health" >/dev/null 2>&1 && break;
-        if [ "$_i" -eq 60 ]; then
-          echo "ERROR: proxy not responding after 60s";
-          journalctl --user -u incus-spawn-proxy --no-pager --since '5 min ago' 2>/dev/null | tail -30 || true;
-          exit 1;
-        fi;
-        sleep 1;
-      done;
-      echo "Proxy is running.";
+      isx proxy install </dev/null;
       echo '==> All priming steps completed successfully'
   - url: https://github.com/yrodiere/incus-spawn-templates/
     path: ~/incus-spawn-templates
