@@ -1,0 +1,45 @@
+name: develocity-mcp
+description: Develocity MCP server for build scans and test history
+proxy:
+  config-namespace: develocity
+  configuration:
+    commonhaus-access-key:
+      config-path: "commonhausAccessKey"
+      description: "Develocity access key for develocity.commonhaus.dev"
+      secret: true
+      help:
+        - "Your account needs the accessBuildDataViaApiAndMcp permission"
+        - "(included in the Developer role)."
+        - "For cross-project analytics, also:"
+        - "  readAccessAllBuildDataWithOrWithoutAssociatedProject"
+        - ""
+        - "Generate a key at My settings > Access keys > Generate."
+        - ""
+        - "The credential is injected only for /mcp requests, so"
+        - "Gradle/Maven builds on the same domain cannot use it to"
+        - "publish scans or write cache data."
+        - ""
+        - "Press Enter to skip if you have no access to this instance."
+    quarkus-access-key:
+      config-path: "quarkusAccessKey"
+      description: "Develocity access key for ge.quarkus.io"
+      secret: true
+      help:
+        - "Same as above. Press Enter to skip if you have no access"
+        - "to this instance."
+  auth:
+    - domains:
+        - develocity.commonhaus.dev
+      paths:
+        - /mcp
+      type: bearer
+      token: "${commonhaus-access-key}"
+    - domains:
+        - ge.quarkus.io
+      paths:
+        - /mcp
+      type: bearer
+      token: "${quarkus-access-key}"
+run_as_user:
+  - '/home/agentuser/.local/bin/claude mcp add -t http -s user develocity-commonhaus https://develocity.commonhaus.dev/mcp -H "Authorization: Bearer placeholder"'
+  - '/home/agentuser/.local/bin/claude mcp add -t http -s user develocity-quarkus https://ge.quarkus.io/mcp -H "Authorization: Bearer placeholder"'

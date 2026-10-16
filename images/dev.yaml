@@ -26,6 +26,7 @@ tools:
 #      model: gpt-5.3-codex
 #      effort: high
   - atlassian-mcp
+  - develocity-mcp
 host-resources:
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
     path: ~/.claude/CLAUDE.md

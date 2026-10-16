@@ -63,6 +63,7 @@ Once inside, Claude Code can use the `/mcp__isx__coordinate` prompt for the full
 | Tool | Description |
 |------|-------------|
 | `atlassian-mcp` | Atlassian MCP server for Jira and Confluence |
+| `develocity-mcp` | Develocity MCP server for build scans and test history |
 | `code-assistant` | Smart code assistant launcher — resumes the most recent AI coding session |
 | `firewalld` | Firewall with permissive defaults for container networking |
 | `incus` | Nested Incus daemon for recursive development |
