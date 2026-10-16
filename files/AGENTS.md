@@ -16,6 +16,15 @@
 * Superficial agreement or disagreement
 * Flattery that doesn't serve the conversation
 
+## Documentation
+
+When a change adds a config option, CLI flag, behavior, or field, or changes
+an existing one, check whether documentation needs a corresponding update:
+README, CONTRIBUTING, AGENTS.md, DESIGN.md, inline help text, or any other
+relevant doc file in the repository.
+Make that update part of the same PR, not a follow-up.
+A feature that ships without its documentation is incomplete.
+
 ## Environment
 
 At the start of each session, load the `incus-spawn` skill.
