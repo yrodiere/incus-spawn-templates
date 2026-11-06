@@ -1,18 +1,18 @@
 name: code-assistant
-description: Smart code assistant launcher — resumes the most recent AI coding session
+description: Smart code assistant launcher — resumes the most recent AI coding session across claude, codex, gemini, copilot, pi, bob and opencode
 packages:
   - sqlite
 parameters:
   default:
     type: string
     description: "Default assistant or assistant:model for first launch"
-    pattern: "^(claude|codex|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?$"
+    pattern: "^(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?$"
     optional: true
     reconfigurable: true
   choices:
     type: string
-    description: "Comma-separated assistant[:model] choices, e.g. claude:opus,claude:sonnet,codex:gpt-5.3-codex,opencode:anthropic/claude-sonnet-4-6,bob. Omit to offer all installed assistants with their configured models. Bob does not support model selection."
-    pattern: "^(claude|codex|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?(,(claude|codex|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?)*$"
+    description: "Comma-separated assistant[:model] choices, e.g. claude:opus,claude:sonnet,codex:gpt-5.3-codex,opencode:anthropic/claude-sonnet-4-6,gemini,copilot,bob. Omit to offer all installed assistants with their configured models. Bob does not support model selection."
+    pattern: "^(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?(,(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?)*$"
     optional: true
     reconfigurable: true
 run:
@@ -34,18 +34,22 @@ run:
     declare -a TOOLS
     command -v claude   >/dev/null 2>&1 && TOOLS+=(claude)
     command -v codex    >/dev/null 2>&1 && TOOLS+=(codex)
+    command -v gemini   >/dev/null 2>&1 && TOOLS+=(gemini)
+    command -v copilot  >/dev/null 2>&1 && TOOLS+=(copilot)
     command -v pi       >/dev/null 2>&1 && TOOLS+=(pi)
     command -v bob      >/dev/null 2>&1 && TOOLS+=(bob)
     command -v opencode >/dev/null 2>&1 && TOOLS+=(opencode)
 
     if [ ${#TOOLS[@]} -eq 0 ]; then
-      echo "No code assistants found (claude, codex, pi, bob, opencode)."
+      echo "No code assistants found (claude, codex, gemini, copilot, pi, bob, opencode)."
       exec bash --login
     fi
 
     # ── Launch helpers ──────────────────────────────────────────────
     launch_claude()  { claude --continue || claude; }
     launch_codex()   { codex resume --last || codex; }
+    launch_gemini()  { gemini --resume latest || gemini; }
+    launch_copilot() { copilot --continue || copilot; }
     launch_pi()      { pi --continue || pi; }
     launch_bob()     { bob chat --resume --auto-approve || bob chat --auto-approve; }
     launch_opencode(){ opencode --continue || opencode; }
@@ -83,6 +87,27 @@ run:
             ts=${f%%.*}
             path=${f#* }
             dir=$(grep -m1 -o '"cwd":"[^"]*"' "$path" 2>/dev/null | cut -d'"' -f4)
+          fi
+          ;;
+        gemini)
+          f=$(find ~/.gemini/tmp -path '*/chats/session-*.jsonl' -printf '%T@ %p\n' 2>/dev/null \
+              | sort -rn | head -1)
+          if [ -n "$f" ]; then
+            ts=${f%%.*}
+            path=${f#* }
+            slug=$(basename "$(dirname "$(dirname "$path")")")
+            dir=$(jq -r --arg s "$slug" \
+              '.projects | to_entries[] | select(.value == $s) | .key' \
+              ~/.gemini/projects.json 2>/dev/null | head -1)
+          fi
+          ;;
+        copilot)
+          f=$(find ~/.copilot/session-state -name 'workspace.yaml' -printf '%T@ %p\n' 2>/dev/null \
+              | sort -rn | head -1)
+          if [ -n "$f" ]; then
+            ts=${f%%.*}
+            path=${f#* }
+            dir=$(grep -m1 '^cwd:' "$path" 2>/dev/null | sed 's/^cwd: *//')
           fi
           ;;
         pi)
@@ -144,7 +169,7 @@ run:
       for selection in "${configured[@]}"; do
         tool=${selection%%:*}
         case "$tool" in
-          claude|codex|pi|bob|opencode) ;;
+          claude|codex|gemini|copilot|pi|bob|opencode) ;;
           *) echo "Ignoring unknown assistant: $tool" >&2; continue ;;
         esac
         if [[ "$tool" == bob && "$selection" == *:* ]]; then
