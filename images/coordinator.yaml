@@ -53,6 +53,7 @@ tools:
       model: claude-sonnet-5
       attribution-commit: ""
       attribution-pr: ""
+  - headroom
   - gh
   - atlassian-mcp
   - develocity-mcp
