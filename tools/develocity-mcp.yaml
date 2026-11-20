@@ -1,7 +1,17 @@
 name: develocity-mcp
 description: Develocity MCP server for build scans and test history
+env:
+  - name: DEVELOCITY_COMMONHAUS_AUTH
+    value: develocity-commonhaus-placeholder
+  - name: DEVELOCITY_QUARKUS_AUTH
+    value: develocity-quarkus-placeholder
 proxy:
   config-namespace: develocity
+  placeholders:
+    - env: DEVELOCITY_COMMONHAUS_AUTH
+      prefix: develocity-commonhaus-
+    - env: DEVELOCITY_QUARKUS_AUTH
+      prefix: develocity-quarkus-
   configuration:
     commonhaus-access-key:
       config-path: "commonhausAccessKey"
@@ -40,6 +50,12 @@ proxy:
         - /mcp
       type: bearer
       token: "${quarkus-access-key}"
-run_as_user:
-  - '/home/agentuser/.local/bin/claude mcp add -t http -s user develocity-commonhaus https://develocity.commonhaus.dev/mcp -H "Authorization: Bearer placeholder"'
-  - '/home/agentuser/.local/bin/claude mcp add -t http -s user develocity-quarkus https://ge.quarkus.io/mcp -H "Authorization: Bearer placeholder"'
+mcp:
+  - name: develocity-commonhaus
+    description: Build scans and test history on develocity.commonhaus.dev
+    url: https://develocity.commonhaus.dev/mcp
+    bearer-token-env: DEVELOCITY_COMMONHAUS_AUTH
+  - name: develocity-quarkus
+    description: Build scans and test history on ge.quarkus.io
+    url: https://ge.quarkus.io/mcp
+    bearer-token-env: DEVELOCITY_QUARKUS_AUTH

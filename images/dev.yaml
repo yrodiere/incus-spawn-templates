@@ -17,8 +17,9 @@ tools:
       editor-mode: vim
   - headroom
   - opencode:
-      model: anthropic/claude-opus-4-6
-      small-model: anthropic/claude-haiku-4-5
+      provider: anthropic
+      model: claude-opus-4-6
+      small-model: claude-haiku-4-5
   # Needs a newer isx to enable parameters
   - codex
 #  - codex:

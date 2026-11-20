@@ -17,9 +17,26 @@ agent_note: |
 
   Delegate investigation and research work (reading docs, source, issues,
   reproducing bugs) to a worker agent via isx MCP tools, rather than doing it
-  directly in the coordinator session. Reserve direct Bash/gh/WebFetch for light
-  checks -- confirming a PR's current state or diff after an agent reports,
-  `gh auth status`, etc. -- not substantive work.
+  directly in the coordinator session. Reserve direct shell commands, gh, and
+  URL fetches for light checks -- confirming a PR's current state or diff after
+  an agent reports, `gh auth status`, etc. -- not substantive work.
+
+  Default delegate() calls to agent: "codex" explicitly rather than leaving
+  agent unset. An explicit agent parameter on delegate() always wins over the
+  target template's own priority-based default, which currently favors claude
+  wherever it is installed -- essentially every template here. This is a
+  deliberate per-call choice to prefer OpenAI/Codex for delegate work.
+  Override when a specific task is better suited to a different agent, e.g. the
+  user explicitly asks for Claude or Codex proves unsuitable for a task.
+
+  After dispatching a delegate or background exec, immediately call task_status
+  with a generous wait_seconds (minutes, not seconds) and re-issue a waiting
+  call as soon as any prior one returns still-running.  When wait_seconds is
+  exceeded the call converts into a tracked background task whose completion
+  arrives as an automatic notification -- a new event in the conversation, not
+  something requiring the user to ask.  Never call task_status once, see "still
+  running," report that to the user and go quiet until prompted -- the
+  automatic-notification mechanism makes manual follow-up unnecessary.
 
   PRs against yrodiere/-owned repos can be opened directly once an agent's work
   is verified. A PR touching a third-party repo (e.g. Sanne/incus-spawn) needs
@@ -49,16 +66,40 @@ agent_note: |
   holding for explicit go-ahead on the first open, unless the instruction is
   unambiguous about opening immediately.
 tools:
-  - claude:
-      model: claude-sonnet-5
-      attribution-commit: ""
-      attribution-pr: ""
-  - headroom
+  # ── Coordinator front-end: opencode with OpenAI ─────────────────────
+  # The coordinator orchestrates delegates and makes tool calls; it does not
+  # generate code itself. gpt-6-luna is fast and suited for orchestration.
+  #
+  # To revert the coordinator front-end to Claude Code:
+  #   1. Uncomment the claude and headroom entries below.
+  #   2. Comment out or remove the opencode entry.
+  #   3. Change default-action to: claude
+  - opencode:
+      provider: openai
+      model: gpt-6-luna
+  # To use an Anthropic model in opencode instead:
+  #   - opencode:
+  #       provider: anthropic
+  #       model: claude-sonnet-5-5
+  # To use a Gemini model in opencode instead:
+  #   - opencode:
+  #       provider: google
+  #       model: gemini-3.8-flash
+
+  # ── Claude Code: disabled ────────────────────────────────────────────
+  # Uncomment to restore Claude Code as the front-end: change
+  # default-action to claude.
+  # - claude:
+  #     model: claude-sonnet-5-5
+  #     attribution-commit: ""
+  #     attribution-pr: ""
+  # - headroom
+
   - gh
   - atlassian-mcp
   - develocity-mcp
   - zsh
-default-action: claude
+default-action: opencode
 packages:
   - iptables-nft
   - jq
@@ -72,6 +113,9 @@ host-resources:
     mode: copy
   - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
     path: ~/.claude/CLAUDE.md
+    mode: copy
+  - source: ~/workspaces/incus-spawn/incus-spawn-templates/files/AGENTS.md
+    path: ~/.config/opencode/AGENTS.md
     mode: copy
   - source: ~/.ssh/agent-authorized-keys
     path: .ssh/authorized-keys
