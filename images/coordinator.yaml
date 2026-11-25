@@ -1,6 +1,6 @@
 name: coordinator
 description: Lightweight coordinator for driving work across isx instances
-parent: minimal
+parent: tpl-minimal
 agent_note: |
   Coordinator workflow conventions:
 
