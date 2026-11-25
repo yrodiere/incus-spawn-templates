@@ -1,6 +1,6 @@
 name: hibernate-infra
 description: Hibernate Infra Dev
-parent: tpl-dev
+parent: dev
 repos:
   - url: https://github.com/hibernate/.github.git
     path: ~/github

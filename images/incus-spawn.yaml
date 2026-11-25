@@ -1,6 +1,6 @@
 name: incus-spawn
 description: Recursive Development of Incus Spawn (isx)
-parent: tpl-dev-vm
+parent: dev-vm
 packages:
   - copr-cli
   - lxc-devel

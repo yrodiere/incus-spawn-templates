@@ -1,6 +1,6 @@
-name: tpl-dev-secure
+name: dev-secure
 description: Secure dev environment (no AI coding tools except Bob)
-parent: tpl-dev-base
+parent: dev-base
 default-action: code-assistant
 tools:
   - code-assistant:

@@ -1,6 +1,6 @@
-name: tpl-dev-base
-description: Base for tpl-dev, with the slow, hopefully rarely-updated part of setup.
-parent: tpl-minimal
+name: dev-base
+description: Base for dev, with the slow, hopefully rarely-updated part of setup.
+parent: minimal
 mask_services: [tmp.mount]
 tools:
   #- tmux

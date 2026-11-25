@@ -1,6 +1,6 @@
 name: hibernate-orm
 description: Hibernate ORM development (JDK + Maven + source)
-parent: tpl-dev
+parent: dev
 repos:
   - url: https://github.com/hibernate/hibernate-orm.git
     path: ~/hibernate-orm

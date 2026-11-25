@@ -1,6 +1,6 @@
 name: tamboui
 description: TamboUI (JDK + source)
-parent: tpl-dev
+parent: dev
 repos:
   - url: https://github.com/tamboui/tamboui
     path: ~/tamboui

@@ -1,11 +1,11 @@
 name: websites
 description: Hibernate Website Dev
-parent: tpl-dev
+parent: dev
 tools:
   - pinchtab
 repos:
   - url: https://github.com/hibernate/hibernate.org.git
-    path: ~/hibernate.org
+    path: ~/hibernate.org 
   - url: https://github.com/hibernate/in.relation.to.git
     path: ~/in.relation.to
   - url: https://github.com/beanvalidation/beanvalidation.org.git

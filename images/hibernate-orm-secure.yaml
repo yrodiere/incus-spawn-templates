@@ -1,6 +1,6 @@
 name: hibernate-orm-secure
 description: Hibernate ORM development, secure (no AI coding tools except Bob)
-parent: tpl-dev-secure
+parent: dev-secure
 repos:
   - url: https://github.com/hibernate/hibernate-orm.git
     path: ~/hibernate-orm

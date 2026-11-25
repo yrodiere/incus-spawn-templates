@@ -1,6 +1,6 @@
 name: quarkus-infra
 description: Quarkus Infra Dev
-parent: tpl-dev
+parent: dev
 repos:
   - url: https://github.com/quarkusio/quarkus-github-lottery.git
     path: ~/lottery

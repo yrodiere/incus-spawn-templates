@@ -1,6 +1,6 @@
 name: commonhaus-infra
 description: Commonhaus Foundation infrastructure, secure (no AI coding tools except Bob)
-parent: tpl-dev-secure
+parent: dev-secure
 repos:
   - host-source: ~/workspaces/infra/project-hibernate
     path: ~/project-hibernate

@@ -1,6 +1,6 @@
-name: tpl-coordinator
+name: coordinator
 description: Lightweight coordinator for driving work across isx instances
-parent: tpl-minimal
+parent: minimal
 agent_note: |
   Coordinator workflow conventions:
 
@@ -136,6 +136,6 @@ coordinator:
     - quarkus-infra
     - tamboui
     - tools
-    - tpl-dev
+    - dev
     - websites
     - wildfly

@@ -1,6 +1,6 @@
 name: hibernate-validator
 description: Hibernate Validator development (JDK + Maven + source)
-parent: tpl-dev
+parent: dev
 repos:
   - url: https://github.com/hibernate/hibernate-validator.git
     path: ~/hibernate-validator
