@@ -1,0 +1,8 @@
+name: ibm-personal
+description: Personal repositories at IBM
+parent: dev-secure
+repos:
+  - host-source: ~/Documents/developer_certification
+    path: ~/developer_certification
+  - host-source: ~/Documents/ai_budget
+    path: ~/ai_budget
