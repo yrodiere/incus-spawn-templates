@@ -29,6 +29,11 @@ agent_note: |
   Override when a specific task is better suited to a different agent, e.g. the
   user explicitly asks for Claude or Codex proves unsuitable for a task.
 
+  For routine delegated coding, prefer Codex GPT-6.2 Sol (`gpt-6.2-sol`) or
+  Claude Sonnet (`claude-sonnet-5-5`). For demanding delegated work such as
+  debugging across services or large refactors, prefer Codex GPT-6.2 Astra
+  (`gpt-6.2-astra`) or Claude Opus (`claude-opus-4-6`).
+
   After dispatching a delegate or background exec, immediately call task_status
   with a generous wait_seconds (minutes, not seconds) and re-issue a waiting
   call as soon as any prior one returns still-running.  When wait_seconds is

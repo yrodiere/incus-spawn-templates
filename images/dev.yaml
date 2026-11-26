@@ -7,9 +7,9 @@ tools:
   #- idea-backend:
   #    memory: 8g
   - code-assistant:
-      default: codex:gpt-6.2-sol
-      # Codex: Sol for capable everyday coding at lower cost; Astra for demanding work.
-      choices: "claude:claude-opus-4-6,codex:gpt-6.2-sol,codex:gpt-6-astra,opencode:anthropic/claude-opus-4-6,gemini,copilot,bob"
+      default: codex:gpt-6.2-astra
+      # Astra is the default for demanding development work. Sol is the lower-cost option.
+      choices: "claude:claude-opus-4-6,codex:gpt-6.2-sol,codex:gpt-6.2-astra,opencode:anthropic/claude-opus-4-6,gemini,copilot,bob"
   - claude:
       model: claude-opus-4-6
       attribution-commit: ""
@@ -20,11 +20,7 @@ tools:
       provider: anthropic
       model: claude-opus-4-6
       small-model: claude-haiku-4-5
-  # Needs a newer isx to enable parameters
   - codex
-#  - codex:
-#      model: gpt-5.3-codex
-#      effort: high
   - gemini-cli
   - copilot
   - atlassian-mcp
