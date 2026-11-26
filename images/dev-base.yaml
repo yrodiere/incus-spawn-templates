@@ -18,9 +18,8 @@ tools:
   - sdkman-mvnd
   - sdkman-jbang
   - bob:
-      max-session-turns: -1
+      max-session-turns: 0
       compression-threshold: "0.6"
-      checkpointing: true
   - gh
 packages:
   - tig
