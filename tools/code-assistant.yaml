@@ -5,13 +5,13 @@ packages:
 parameters:
   default:
     type: string
-    description: "Default assistant or assistant:model for first launch"
+    description: "Preferred listed assistant or assistant:model for first launch or --new"
     pattern: "^(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?$"
     optional: true
     reconfigurable: true
   choices:
     type: string
-    description: "Comma-separated assistant[:model] choices, e.g. claude:opus,claude:sonnet,codex:gpt-5.3-codex,opencode:anthropic/claude-sonnet-4-6,gemini,copilot,bob. Omit to offer all installed assistants with their configured models. Bob does not support model selection."
+    description: "Comma-separated assistant[:model] choices, e.g. claude:opus,claude:sonnet,codex:gpt-6.2-sol,codex:gpt-6.2-astra,opencode:anthropic/claude-sonnet-4-6,gemini,copilot,bob. Omit to offer all installed assistants with their configured models. Bob does not support model selection."
     pattern: "^(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?(,(claude|codex|gemini|copilot|pi|bob|opencode)(:[A-Za-z0-9_./:@+-]+)?)*$"
     optional: true
     reconfigurable: true

@@ -84,8 +84,8 @@ Configure the first-launch menu through tool parameters in an image definition:
 ```yaml
 tools:
   - code-assistant:
-      default: claude:opus
-      choices: "claude:opus,claude:sonnet,codex,opencode:anthropic/claude-sonnet-4-6,bob"
+      default: codex:gpt-6.2-sol
+      choices: "codex:gpt-6.2-sol,codex:gpt-6.2-astra,claude:opus,claude:sonnet,opencode:anthropic/claude-sonnet-4-6,bob"
 ```
 
 `choices` is a comma-separated list with no spaces. Each entry is an assistant
@@ -95,6 +95,11 @@ configuration; omitting `choices` offers all installed assistants this way.
 Bob supports only the plain `bob` entry because its CLI has no model flag.
 `default` prefers a listed combination (or all entries for that assistant when
 it has no model suffix); it does not add a choice to the list.
+
+GPT-6.2 Sol is the lower-cost Codex choice for everyday coding. The `dev`
+template and its descendants default to GPT-6.2 Astra for demanding work and
+offer Sol in the same picker. The coordinator uses GPT-6 Luna for orchestration
+and recommends Sol or Astra to delegates based on task complexity.
 
 The menu combines these choices with discovered working directories and skips
 prompting when only one combination is available. Subsequent launches resume
