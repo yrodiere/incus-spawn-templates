@@ -6,3 +6,5 @@ repos:
     path: ~/developer_certification
   - host-source: ~/Documents/ai_budget
     path: ~/ai_budget
+  - host-source: ~/Documents/goals
+    path: ~/goals
